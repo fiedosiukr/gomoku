@@ -69,7 +69,26 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_AddonFont>true</Allegro_AddonFont>
+    <Allegro_AddonTTF>true</Allegro_AddonTTF>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_AddonFont>true</Allegro_AddonFont>
+    <Allegro_AddonTTF>true</Allegro_AddonTTF>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_AddonFont>true</Allegro_AddonFont>
+    <Allegro_AddonTTF>true</Allegro_AddonTTF>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_AddonFont>true</Allegro_AddonFont>
+    <Allegro_AddonTTF>true</Allegro_AddonTTF>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -115,8 +134,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="piece.cpp" />
+    <ClCompile Include="playstate.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="constants.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="piece.h" />
+    <ClInclude Include="playstate.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\arial.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\AllegroDeps.1.10.0.0\build\native\AllegroDeps.targets" Condition="Exists('..\packages\AllegroDeps.1.10.0.0\build\native\AllegroDeps.targets')" />
+    <Import Project="..\packages\Allegro.5.2.5.2\build\native\Allegro.targets" Condition="Exists('..\packages\Allegro.5.2.5.2\build\native\Allegro.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\AllegroDeps.1.10.0.0\build\native\AllegroDeps.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\AllegroDeps.1.10.0.0\build\native\AllegroDeps.targets'))" />
+    <Error Condition="!Exists('..\packages\Allegro.5.2.5.2\build\native\Allegro.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Allegro.5.2.5.2\build\native\Allegro.targets'))" />
+  </Target>
 </Project>
